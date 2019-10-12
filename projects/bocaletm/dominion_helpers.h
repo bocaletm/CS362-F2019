@@ -13,6 +13,6 @@ int baronEffect(int choice1, int currentPlayer, int nextPlayer,  struct gameStat
 int minionEffect();
 int ambassadorEffect();
 int tributeEffect();
-int mineEffect();
+int mineEffect(int choice1, int choice2, int currentPlayer, int handPos, struct gameState *state);
 
 #endif
