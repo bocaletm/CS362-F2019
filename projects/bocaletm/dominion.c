@@ -385,16 +385,12 @@ int ambassadorEffect(int choice1, int choice2, int handPos, int currentPlayer, s
   int j;
   j = 0;		//used to check if player has enough cards to discard
 
-  if (choice2 > 2 || choice2 < 0) {
-    return -1;
-  }
-
-  if (choice1 == handPos) {
+  if (choice2 > 2 || choice2 < 0 || choice1 == handPos) {
     return -1;
   }
 
   for (i = 0; i < state->handCount[currentPlayer]; i++) {
-    if (i != handPos && i == state->hand[currentPlayer][choice1] && i != choice1) {
+    if (i != handPos && i == state->hand[currentPlayer][choice1]) {
       j++;
     }
   }
