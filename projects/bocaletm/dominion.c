@@ -395,6 +395,10 @@ int minionEffect(int choice1, int choice2, int currentPlayer, int handPos, struc
 
 /*******************************
  * AMBASSADOR EFFECT
+ * Bugs: iteration for players gaining a reveal card will go over the n of
+ * hands due to <= instead of <
+ * if the debug flag is used, printf will have a mismatch in data type s vs
+ * d and crash the program
  * ****************************/
 int ambassadorEffect(int choice1, int choice2, int handPos, int currentPlayer, struct gameState *state){
     int i;
@@ -424,13 +428,13 @@ int ambassadorEffect(int choice1, int choice2, int handPos, int currentPlayer, s
     }
 
     if (DEBUG)
-        printf("Player %d reveals card number: %d\n", currentPlayer, state->hand[currentPlayer][choice1]);
+        printf("Player %s reveals card number: %d\n", currentPlayer, state->hand[currentPlayer][choice1]);
 
     //increase supply count for choosen card by amount being discarded
     state->supplyCount[state->hand[currentPlayer][choice1]] += choice2;
 
     //each other player gains a copy of revealed card
-    for (i = 0; i < state->numPlayers; i++)
+    for (i = 0; i <= state->numPlayers; i++)
     {
         if (i != currentPlayer)
         {
