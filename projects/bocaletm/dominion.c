@@ -385,25 +385,20 @@ int ambassadorEffect(int choice1, int choice2, int handPos, int currentPlayer, s
   int j;
   j = 0;		//used to check if player has enough cards to discard
 
-  if (choice2 > 2 || choice2 < 0)
-  {
+  if (choice2 > 2 || choice2 < 0) {
     return -1;
   }
 
-  if (choice1 == handPos)
-  {
+  if (choice1 == handPos) {
     return -1;
   }
 
-  for (i = 0; i < state->handCount[currentPlayer]; i++)
-  {
-    if (i != handPos && i == state->hand[currentPlayer][choice1] && i != choice1)
-    {
+  for (i = 0; i < state->handCount[currentPlayer]; i++) {
+    if (i != handPos && i == state->hand[currentPlayer][choice1] && i != choice1) {
       j++;
     }
   }
-  if (j < choice2)
-  {
+  if (j < choice2) {
     return -1;
   }
 
@@ -414,10 +409,8 @@ int ambassadorEffect(int choice1, int choice2, int handPos, int currentPlayer, s
   state->supplyCount[state->hand[currentPlayer][choice1]] += choice2;
 
   //each other player gains a copy of revealed card
-  for (i = 0; i <= state->numPlayers; i++)
-  {
-    if (i != currentPlayer)
-    {
+  for (i = 0; i <= state->numPlayers; i++) {
+    if (i != currentPlayer) {
       gainCard(state->hand[currentPlayer][choice1], state, 0, i);
     }
   }
@@ -426,12 +419,9 @@ int ambassadorEffect(int choice1, int choice2, int handPos, int currentPlayer, s
   discardCard(handPos, currentPlayer, state, 0);
 
   //trash copies of cards returned to supply
-  for (j = 0; j < choice2; j++)
-  {
-    for (i = 0; i < state->handCount[currentPlayer]; i++)
-    {
-      if (state->hand[currentPlayer][i] == state->hand[currentPlayer][choice1])
-      {
+  for (j = 0; j < choice2; j++) {
+    for (i = 0; i < state->handCount[currentPlayer]; i++) {
+      if (state->hand[currentPlayer][i] == state->hand[currentPlayer][choice1]) {
         discardCard(i, currentPlayer, state, 1);
         break;
       }
