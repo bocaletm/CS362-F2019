@@ -274,29 +274,23 @@ int mineEffect(int choice1, int choice2, int currentPlayer, int handPos, struct 
 
 /*******************************
  * TRIBUTE EFFECT
+ * Bugs: action card divides by 2 instead of adding 2; potential for dividing 0 and
+ * crashing the program
  * ****************************/
 int tributeEffect(int currentPlayer, int nextPlayer, struct gameState *state){
     int i;
-    int tributeRevealedCards[2] = {-1, -1};
+    int tributeRevealedCards[2] = {-1,-1};
     if ((state->discardCount[nextPlayer] + state->deckCount[nextPlayer]) <= 1) {
         if (state->deckCount[nextPlayer] > 0) {
             tributeRevealedCards[0] = state->deck[nextPlayer][state->deckCount[nextPlayer]-1];
             state->deckCount[nextPlayer]--;
-        }
-        else if (state->discardCount[nextPlayer] > 0) {
+        } else if (state->discardCount[nextPlayer] > 0) {
             tributeRevealedCards[0] = state->discard[nextPlayer][state->discardCount[nextPlayer]-1];
             state->discardCount[nextPlayer]--;
-        }
-        else {
-            //No Card to Reveal
-            if (DEBUG) {
+        } else if (DEBUG) {
                 printf("No cards to reveal\n");
-            }
         }
-    }
-
-    else {
-        if (state->deckCount[nextPlayer] == 0) {
+    } else if (state->deckCount[nextPlayer] == 0) {
             for (i = 0; i < state->discardCount[nextPlayer]; i++) {
                 state->deck[nextPlayer][i] = state->discard[nextPlayer][i];//Move to deck
                 state->deckCount[nextPlayer]++;
@@ -305,14 +299,13 @@ int tributeEffect(int currentPlayer, int nextPlayer, struct gameState *state){
             }
 
             shuffle(nextPlayer,state);//Shuffle the deck
-        }
-        tributeRevealedCards[0] = state->deck[nextPlayer][state->deckCount[nextPlayer]-1];
-        state->deck[nextPlayer][state->deckCount[nextPlayer]--] = -1;
-        state->deckCount[nextPlayer]--;
-        tributeRevealedCards[1] = state->deck[nextPlayer][state->deckCount[nextPlayer]-1];
-        state->deck[nextPlayer][state->deckCount[nextPlayer]--] = -1;
-        state->deckCount[nextPlayer]--;
     }
+    tributeRevealedCards[0] = state->deck[nextPlayer][state->deckCount[nextPlayer]-1];
+    state->deck[nextPlayer][state->deckCount[nextPlayer]--] = -1;
+    state->deckCount[nextPlayer]--;
+    tributeRevealedCards[1] = state->deck[nextPlayer][state->deckCount[nextPlayer]-1];
+    state->deck[nextPlayer][state->deckCount[nextPlayer]--] = -1;
+    state->deckCount[nextPlayer]--;
 
     if (tributeRevealedCards[0] == tributeRevealedCards[1]) { //If we have a duplicate card, just drop one
         state->playedCards[state->playedCardCount] = tributeRevealedCards[1];
@@ -323,14 +316,11 @@ int tributeEffect(int currentPlayer, int nextPlayer, struct gameState *state){
     for (i = 0; i <= 2; i ++) {
         if (tributeRevealedCards[i] == copper || tributeRevealedCards[i] == silver || tributeRevealedCards[i] == gold) { //Treasure cards
             state->coins += 2;
-        }
-
-        else if (tributeRevealedCards[i] == estate || tributeRevealedCards[i] == duchy || tributeRevealedCards[i] == province || tributeRevealedCards[i] == gardens || tributeRevealedCards[i] == great_hall) { //Victory Card Found
+        } else if (tributeRevealedCards[i] == estate || tributeRevealedCards[i] == duchy || tributeRevealedCards[i] == province || tributeRevealedCards[i] == gardens || tributeRevealedCards[i] == great_hall) { //Victory Card Found
             drawCard(currentPlayer, state);
             drawCard(currentPlayer, state);
-        }
-        else { //Action Card
-            state->numActions = state->numActions + 2;
+        } else { //Action Card
+            state->numActions = state->numActions / 2;
         }
     }
     return 0;
@@ -338,6 +328,11 @@ int tributeEffect(int currentPlayer, int nextPlayer, struct gameState *state){
 
 /*******************************
  * MINION EFFECT
+ * Bugs: the iterator for drawing a card is j instead of i (will crash the
+ * program if the number of players is less than 4 or will not draw a card for
+ * all players if it's greater than 4
+ * handCount is passed to discard card instead of handPos, resulting in out of
+ * range error
  * ****************************/
 int minionEffect(int choice1, int choice2, int currentPlayer, int handPos, struct gameState *state){
     int i;
@@ -346,50 +341,38 @@ int minionEffect(int choice1, int choice2, int currentPlayer, int handPos, struc
     state->numActions++;
 
     //discard card from hand
-    discardCard(handPos, currentPlayer, state, 0);
+    discardCard(state->handCount[currentPlayer], currentPlayer, state, 0);
 
-    if (choice1)
-    {
+    if (choice1) {
         state->coins = state->coins + 2;
-    }
-    else if (choice2)		//discard hand, redraw 4, other players with 5+ cards discard hand and draw 4
-    {
+    } else if (choice2) {		//discard hand, redraw 4, other players with 5+ cards discard hand and draw 4
         //discard hand
-        while(numHandCards(state) > 0)
-        {
+        while(numHandCards(state) > 0) {
             discardCard(handPos, currentPlayer, state, 0);
         }
 
         //draw 4
-        for (i = 0; i < 4; i++)
-        {
+        for (i = 0; i < 4; i++) {
             drawCard(currentPlayer, state);
         }
 
         //other players discard hand and redraw if hand size > 4
-        for (i = 0; i < state->numPlayers; i++)
-        {
-            if (i != currentPlayer)
-            {
-                if ( state->handCount[i] > 4 )
-                {
+        for (i = 0; i < state->numPlayers; i++) {
+            if (i != currentPlayer) {
+                if ( state->handCount[i] > 4 ) {
                     //discard hand
-                    while( state->handCount[i] > 0 )
-                    {
+                    while( state->handCount[i] > 0 ) {
                         discardCard(handPos, i, state, 0);
                     }
 
                     //draw 4
-                    for (j = 0; j < 4; j++)
-                    {
-                        drawCard(i, state);
+                    for (j = 0; j < 4; j++) {
+                        drawCard(j, state);
                     }
                 }
             }
         }
-
     }
-
     return 0;
 }
 
