@@ -458,12 +458,14 @@ int ambassadorEffect(int choice1, int choice2, int handPos, int currentPlayer, s
 
 /*******************************
  * BARON EFFECT
+ * Bugs: hand itereator p initialized to 1 (skips first card)
+ *       card not discarded initialized to 0 (skips all the estate card logic)
  * ****************************/
 int baronEffect(int choice1, int currentPlayer, int nextPlayer,  struct gameState *state) {
   state->numBuys++;//Increase buys by 1!
   if (choice1 > 0) { //Boolean true or going to discard an estate
-       int p = 0;//Iterator for hand!
-       int card_not_discarded = 1;//Flag for discard set!
+       int p = 1;//Iterator for hand!
+       int card_not_discarded = 0;//Flag for discard set!
        while(card_not_discarded) {
            if (state->hand[currentPlayer][p] == estate) { //Found an estate card!
                state->coins += 4;//Add 4 coins to the amount of coins
@@ -475,8 +477,7 @@ int baronEffect(int choice1, int currentPlayer, int nextPlayer,  struct gameStat
                state->hand[currentPlayer][state->handCount[currentPlayer]] = -1;
                state->handCount[currentPlayer]--;
                card_not_discarded = 0;//Exit the loop
-           }
-           else if (p > state->handCount[currentPlayer]) {
+           } else if (p > state->handCount[currentPlayer]) {
                if(DEBUG) {
                    printf("No estate cards in your hand, invalid choice\n");
                    printf("Must gain an estate if there are any\n");
@@ -490,15 +491,11 @@ int baronEffect(int choice1, int currentPlayer, int nextPlayer,  struct gameStat
                    }
                }
                card_not_discarded = 0;//Exit the loop
-           }
-
-           else {
+           } else {
                p++;//Next card
            }
        }
-   }
-
-   else {
+   } else {
        if (supplyCount(estate, state) > 0) {
            gainCard(estate, state, 0, currentPlayer);//Gain an estate
 
