@@ -233,25 +233,24 @@ int shuffle(int player, struct gameState *state) {
 
 /*******************************
  * MINE EFFECT
+ * Bugs: i set to -1 is later used to index into an array
+ * exit instead of return
  * ****************************/
 int mineEffect(int choice1, int choice2, int currentPlayer, int handPos, struct gameState *state){
-    int i;
+    int i = -1;
     int j;
 
     j = state->hand[currentPlayer][choice1];  //store card we will trash
 
-    if (state->hand[currentPlayer][choice1] < copper || state->hand[currentPlayer][choice1] > gold)
-    {
+    if (state->hand[currentPlayer][choice1] < copper || state->hand[currentPlayer][choice1] > gold) {
         return -1;
     }
 
-    if (choice2 > treasure_map || choice2 < curse)
-    {
+    if (choice2 > treasure_map || choice2 < curse) {
         return -1;
     }
 
-    if ( (getCost(state->hand[currentPlayer][choice1]) + 3) > getCost(choice2) )
-    {
+    if ((getCost(state->hand[currentPlayer][choice1]) + 3) > getCost(choice2) ) {
         return -1;
     }
 
@@ -261,15 +260,13 @@ int mineEffect(int choice1, int choice2, int currentPlayer, int handPos, struct 
     discardCard(handPos, currentPlayer, state, 0);
 
     //discard trashed card
-    for (i = 0; i < state->handCount[currentPlayer]; i++)
-    {
-        if (state->hand[currentPlayer][i] == j)
-        {
+    for (; i < state->handCount[currentPlayer]; i++) {
+        if (state->hand[currentPlayer][i] == j) {
             discardCard(i, currentPlayer, state, 0);
             break;
         }
     }
-    return 0;
+    exit(0);
 }
 
 /*******************************
