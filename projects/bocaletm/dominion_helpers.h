@@ -14,5 +14,5 @@ int minionEffect(int choice1, int choice2, int currentPlayer, int handPos, struc
 int ambassadorEffect(int choice1, int choice2, int handPos, int currentPlayer, struct gameState *state);
 int tributeEffect(int currentPlayer, int nextPlayer, struct gameState *state);
 int mineEffect(int choice1, int choice2, int currentPlayer, int handPos, struct gameState *state);
-
+int discardTrashedCard(struct gameState *state, int currentPlayer, int cardToTrash);
 #endif

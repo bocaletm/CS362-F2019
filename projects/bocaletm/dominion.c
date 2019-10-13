@@ -233,11 +233,11 @@ int shuffle(int player, struct gameState *state) {
 
 /*******************************
  * MINE EFFECT
- * Bugs: i set to -1 is later used to index into an array
+ * Bugs: index in the hand is incremented instead of the cost, resulting in out
+ * of range error
  * exit instead of return
  * ****************************/
 int mineEffect(int choice1, int choice2, int currentPlayer, int handPos, struct gameState *state){
-  int i = -1;
   int j;
 
   j = state->hand[currentPlayer][choice1];  //store card we will trash
@@ -250,7 +250,7 @@ int mineEffect(int choice1, int choice2, int currentPlayer, int handPos, struct 
     return -1;
   }
 
-  if ((getCost(state->hand[currentPlayer][choice1]) + 3) > getCost(choice2) ) {
+  if ((getCost(state->hand[currentPlayer][choice1 + 3])) > getCost(choice2)) {
     return -1;
   }
 
@@ -260,12 +260,8 @@ int mineEffect(int choice1, int choice2, int currentPlayer, int handPos, struct 
   discardCard(handPos, currentPlayer, state, 0);
 
   //discard trashed card
-  for (; i < state->handCount[currentPlayer]; i++) {
-    if (state->hand[currentPlayer][i] == j) {
-      discardCard(i, currentPlayer, state, 0);
-      break;
-    }
-  }
+  discardTrashedCard(state,currentPlayer,j);
+
   exit(0);
 }
 
@@ -931,8 +927,7 @@ int getCost(int cardNumber)
   return -1;
 }
 
-int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState *state, int handPos, int *bonus)
-{
+int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState *state, int handPos, int *bonus) {
   int i;
   int j;
   int k;
@@ -951,8 +946,7 @@ int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState
 
 
   //uses switch to select card and perform actions
-  switch( card )
-  {
+  switch( card ) {
     case adventurer:
       while(drawntreasure<2) {
         if (state->deckCount[currentPlayer] <1) { //if the deck is empty we need to shuffle discard and add to deck
@@ -1071,15 +1065,7 @@ int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState
       discardCard(handPos, currentPlayer, state, 0);
 
       //discard trashed card
-      for (i = 0; i < state->handCount[currentPlayer]; i++)
-      {
-        if (state->hand[currentPlayer][i] == j)
-        {
-          discardCard(i, currentPlayer, state, 0);
-          break;
-        }
-      }
-
+      discardTrashedCard(state, currentPlayer, j);
 
       return 0;
 
@@ -1149,7 +1135,7 @@ int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState
       return tributeEffect(currentPlayer, nextPlayer, state);
 
     case ambassador:
-      return ambassadorEffect(choice1, choice2, handPos, currentPlayer, state){
+      return ambassadorEffect(choice1, choice2, handPos, currentPlayer, state);
 
     case cutpurse:
 
@@ -1309,6 +1295,23 @@ int discardCard(int handPos, int currentPlayer, struct gameState *state, int tra
 
   return 0;
 }
+
+/****************************
+ * DISCARD TRASHED CARD
+ * **************************/
+int discardTrashedCard(struct gameState *state, int currentPlayer, int cardToTrash){
+  int i;
+  for (i = 0; i < state->handCount[currentPlayer]; i++) {
+    if (state->hand[currentPlayer][i] == cardToTrash) {
+      discardCard(i, currentPlayer, state, 0);
+      break;
+    }
+  }
+
+  return 0;
+}
+
+
 
 int gainCard(int supplyPos, struct gameState *state, int toFlag, int player)
 {
