@@ -412,13 +412,9 @@ int ambassadorEffect(int choice1, int choice2, int handPos, int currentPlayer, s
 
   //trash copies of cards returned to supply
   for (j = 0; j < choice2; j++) {
-    for (i = 0; i < state->handCount[currentPlayer]; i++) {
-      if (state->hand[currentPlayer][i] == state->hand[currentPlayer][choice1]) {
-        discardCard(i, currentPlayer, state, 1);
-        break;
-      }
-    }
+      discardTrashedCard(state,currentPlayer,state->hand[currentPlayer][choice1]);
   }
+
   return 0;
 }
 
@@ -1303,7 +1299,7 @@ int discardTrashedCard(struct gameState *state, int currentPlayer, int cardToTra
   int i;
   for (i = 0; i < state->handCount[currentPlayer]; i++) {
     if (state->hand[currentPlayer][i] == cardToTrash) {
-      discardCard(i, currentPlayer, state, 0);
+      discardCard(i, currentPlayer, state, 1);
       break;
     }
   }

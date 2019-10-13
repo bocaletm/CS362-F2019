@@ -1,0 +1,13 @@
+1294-  }
+1295-
+1296-  return 0;
+1297-}
+1298-
+1299-/****************************
+1300: * DISCARD TRASHED CARD
+1301- * **************************/
+1302-int discardTrashedCard(struct gameState *state, int currentPlayer, int cardToTrash){
+1303-  int i;
+1304-  for (i = 0; i < state->handCount[currentPlayer]; i++) {
+1305-    if (state->hand[currentPlayer][i] == cardToTrash) {
+1306-      discardCard(i, currentPlayer, state, 0);
