@@ -269,13 +269,15 @@ int mineEffect(int choice1, int choice2, int currentPlayer, int handPos, struct 
  * TRIBUTE EFFECT
  * Bugs: action card divides by 2 instead of adding 2; potential for dividing 0 and
  * crashing the program
+ * use the deckcount of the next player to index the last card, resulting in
+ * out of range index
  * ****************************/
 int tributeEffect(int currentPlayer, int nextPlayer, struct gameState *state){
   int i;
   int tributeRevealedCards[2] = {-1,-1};
   if ((state->discardCount[nextPlayer] + state->deckCount[nextPlayer]) <= 1) {
     if (state->deckCount[nextPlayer] > 0) {
-      tributeRevealedCards[0] = state->deck[nextPlayer][state->deckCount[nextPlayer]-1];
+      tributeRevealedCards[0] = state->deck[nextPlayer][state->deckCount[nextPlayer]];
       state->deckCount[nextPlayer]--;
     } else if (state->discardCount[nextPlayer] > 0) {
       tributeRevealedCards[0] = state->discard[nextPlayer][state->discardCount[nextPlayer]-1];
