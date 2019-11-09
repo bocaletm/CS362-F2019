@@ -40,12 +40,12 @@ int testBaron() {
   gainCard(mine, gameState, 0, 0);
   gainCard(mine, gameState, 0, 0);
   baronEffect(1, 0, 1, gameState);
-  passed = assertMod(hasCard(0,gameState,estate),0);
+  failed = assertMod(hasCard(0,gameState,estate),0);
   if (failed) {
     printf("first card is estate failed\n");
   }
 
-  //middle
+    //middle
   clearHand(0,gameState);
   gainCard(mine, gameState, 0, 0);
   gainCard(estate, gameState, 0, 0);
@@ -56,7 +56,7 @@ int testBaron() {
     printf("second card is estate failed\n");
   }
 
-  //last
+    //last
   clearHand(0,gameState);
   gainCard(mine, gameState, 0, 0);
   gainCard(mine, gameState, 0, 0);
@@ -68,24 +68,23 @@ int testBaron() {
   }
 
   // verify that estate is gained
+  clearHand(0,gameState);
+  gainCard(mine, gameState, 0, 0);
+  gainCard(mine, gameState, 0, 0);
+  gainCard(mine, gameState, 0, 0);
+  baronEffect(0, 0, 1, gameState);
+  failed = assertMod(hasCard(0,gameState,estate),1);
+  if (failed) {
+    printf("gain estate failed\n");
+  }
+
   // verify that game ends if no estates
-  assert(G.coins == something); // check a condition
-  assert(some condition);
-
-  // adjust the state of your variables to continue testing
-  // comment on what this is going to test 
-  memset(&G, 0, sizeof(struct gameState)); 
-  r = initializeGame(3, k, seed, &G); 
-  G.handCount[p] = handCount; 
-  memcpy(G.hand[p], silvers, sizeof(int) * handCount);
-
-  // call the refactored function again 
-  myrefactoredfunction(p, &G, bonus);
-
-  // verify that your asserts pass, for the bugs your asserts may fail
-  assert(G.coins == something); // check a condition
-  assert(some condition);
-  assert(some condition);
+  gameState->supplyCount[estate] = 1; //set to 1 because function decrements
+  baronEffect(0, 0, 1, gameState);
+  failed = assertMod(isGameOver(gameState),1);
+  if (failed) {
+    printf("end game due to no estates failed\n");
+  }
 
   printf("Test completed!\n");
 }

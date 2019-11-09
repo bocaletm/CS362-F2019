@@ -469,7 +469,6 @@ int baronEffect(int choice1, int currentPlayer, int nextPlayer,  struct gameStat
       }
     }
   }
-
   return 0;
 }
 
