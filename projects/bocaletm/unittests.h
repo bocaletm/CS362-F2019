@@ -3,6 +3,8 @@
 
 #include "dominion_helpers.h"
 
+void clearHand(int player, struct gameState *state);
+int hasCard(int player, struct gameState *state, int card);
 int testBaron();
 int testMine();
 int testAmbassador();
