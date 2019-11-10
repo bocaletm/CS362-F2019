@@ -9,10 +9,10 @@ char inputChar()
     int alphaMax = 125;
     int space = 32;
     int randAlpha; 
-    if (rand() % 3 == 0) {
+    if (rand() % 9 == 0) { //about 1/9 of the cases test for a space
       return space;
     } else {
-      randAlpha = rand() % (alphaMax - alphaMax + 1) + alphaMin;
+      randAlpha = rand() % (alphaMax - alphaMin + 1) + alphaMin;
       return (char)randAlpha;
     } 
 }
@@ -22,6 +22,10 @@ char *inputString()
     int max_length = 5;
     char* s = malloc(max_length * sizeof(char));
     memset(s,'\0',max_length);
+    int i;
+    for (i=0; i<max_length; i++) {
+      s[i] = inputChar();
+    }
     return s;
 }
 
@@ -63,5 +67,6 @@ int main(int argc, char *argv[])
 {
     srand(time(NULL));
     testme();
+//    printf("char: ->%c<-\tstring: ->%s<-\n",inputChar(),inputString());
     return 0;
 }
