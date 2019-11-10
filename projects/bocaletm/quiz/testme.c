@@ -5,10 +5,16 @@
 
 char inputChar()
 {
-    int asciiMin = 32;
-    int asciiMax = 125;
-    int randChar = rand() % (asciiMax - asciiMin + 1) + asciiMin;
-    return (char)randChar; 
+    int alphaMin = 97;
+    int alphaMax = 125;
+    int space = 32;
+    int randAlpha; 
+    if (rand() % 3 == 0) {
+      return space;
+    } else {
+      randAlpha = rand() % (alphaMax - alphaMax + 1) + alphaMin;
+      return (char)randAlpha;
+    } 
 }
 
 char *inputString()
