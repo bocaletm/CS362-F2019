@@ -7,7 +7,8 @@ char inputChar()
 {
     int asciiMin = 32;
     int asciiMax = 125;
-    return (char)(rand() % (asciiMax - asciiMin + 1)) asciiMin; 
+    int randChar = rand() % (asciiMax - asciiMin + 1) + asciiMin;
+    return (char)randChar; 
 }
 
 char *inputString()
