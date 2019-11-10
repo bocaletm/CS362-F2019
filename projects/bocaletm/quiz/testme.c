@@ -22,11 +22,11 @@ char inputChar()
 
 char *inputString()
 {
-    int max_length = 5;
+    int max_length = 6;
     char* s = malloc(max_length * sizeof(char));
     memset(s,'\0',max_length);
     int i;
-    for (i=0; i<max_length; i++) {
+    for (i=0; i<(max_length - 1); i++) {
       s[i] = inputChar();
     }
     return s;
