@@ -429,7 +429,9 @@ int baronEffect(int choice1, int currentPlayer, int nextPlayer,  struct gameStat
   state->numBuys++;//Increase buys by 1!
   if (choice1 > 0) { //Boolean true or going to discard an estate
     int p = 1;//Iterator for hand!
-    int card_not_discarded = 0;//Flag for discard set!
+//NOTE: This bug was causing none of the tests to execute
+//int card_not_discarded = 0;//Flag for discard set!
+    int card_not_discarded = 1;//Flag for discard set!
     while(card_not_discarded) {
       if (state->hand[currentPlayer][p] == estate) { //Found an estate card!
         state->coins += 4;//Add 4 coins to the amount of coins
