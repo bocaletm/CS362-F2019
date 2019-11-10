@@ -36,6 +36,7 @@ char *inputString()
       s[0] = 'e';
       s[0] = 't';
       s[0] = '\0';
+    }
     return s;
 }
 
