@@ -5,14 +5,17 @@
 
 char inputChar()
 {
-    // TODO: rewrite this function
-    return ' ';
+    int asciiMin = 32;
+    int asciiMax = 125;
+    return (char)(rand() % (asciiMax - asciiMin + 1)) asciiMin; 
 }
 
 char *inputString()
 {
-    // TODO: rewrite this function
-    return "";
+    int max_length = 5;
+    char* s = malloc(max_length * sizeof(char));
+    memset(s,'\0',max_length);
+    return s;
 }
 
 void testme()
