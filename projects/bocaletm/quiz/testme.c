@@ -5,12 +5,15 @@
 
 char inputChar()
 {
-    int alphaMin = 97;
+    int alphaMin = 91;
     int alphaMax = 125;
-    int space = 32;
+    int specialMin = 32;
+    int specialMax = 57;
     int randAlpha; 
-    if (rand() % 9 == 0) { //about 1/9 of the cases test for a space
-      return space;
+    int randSpecial;
+    if (rand() % 9 == 0) { //about 1/9 of the cases test for one of these 
+      randSpecial = rand() % (specialMax - specialMin + 1) + specialMin;
+      return randSpecial;
     } else {
       randAlpha = rand() % (alphaMax - alphaMin + 1) + alphaMin;
       return (char)randAlpha;
