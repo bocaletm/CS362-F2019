@@ -250,7 +250,9 @@ int mineEffect(int choice1, int choice2, int currentPlayer, int handPos, struct 
     return -1;
   }
 
-  if ((getCost(state->hand[currentPlayer][choice1 + 3])) > getCost(choice2)) {
+  // NOTE: commented out bug to avoid crash 
+  // if ((getCost(state->hand[currentPlayer][choice1 + 3])) > getCost(choice2)) {
+  if ((getCost(state->hand[currentPlayer][choice1])+3) > getCost(choice2)) {
     return -1;
   }
 
@@ -262,7 +264,8 @@ int mineEffect(int choice1, int choice2, int currentPlayer, int handPos, struct 
   //discard trashed card
   discardTrashedCard(state,currentPlayer,j);
 
-  exit(0);
+  //NOTE: bug commented out to continue execution exit(0);
+  return 0;
 }
 
 /*******************************

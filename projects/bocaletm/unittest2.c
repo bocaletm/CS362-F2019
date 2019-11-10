@@ -44,42 +44,41 @@ int testMine() {
   
   //verify that the trade is valid (will improve by 3)
   clearHand(0,gamePtr);
-  gainCard(copper, gamePtr, 0, 0);
+  gainCard(silver, gamePtr, 0, 0);
   gainCard(estate, gamePtr, 0, 0);
   gainCard(baron, gamePtr, 0, 0);
-  failed = assertMod(mineEffect(0, gold, 0, 0,gamePtr),-1);
+  failed = assertMod(mineEffect(0, copper, 0, 0,gamePtr),-1);
   if (!failed) {
     printf("error: invalid trade was allowed \n");
   }
- 
-    //last
+  
+  //verify card was gained
   clearHand(0,gamePtr);
-  gainCard(mine, gamePtr, 0, 0);
-  gainCard(mine, gamePtr, 0, 0);
-  gainCard(estate, gamePtr, 0, 0);
-  baronEffect(1, 0, 1, gamePtr);
-  failed = assertMod(hasCard(0,gamePtr,estate),0);
-  if (failed) {
-    printf("last card is estate failed\n");
+  gainCard(copper, gamePtr, 0, 0);
+  mineEffect(0, gold, 0, 0,gamePtr);
+  failed = assertMod(hasCard(0,gamePtr,gold),0);
+  if (!failed) {
+    printf("error: failed to gain card \n");
   }
 
-  // verify that estate is gained
+  //verify card was discarded
   clearHand(0,gamePtr);
   gainCard(mine, gamePtr, 0, 0);
-  gainCard(mine, gamePtr, 0, 0);
-  gainCard(mine, gamePtr, 0, 0);
-  baronEffect(0, 0, 1, gamePtr);
-  failed = assertMod(hasCard(0,gamePtr,estate),1);
-  if (failed) {
-    printf("gain estate failed\n");
+  gainCard(copper, gamePtr, 0, 0);
+  mineEffect(0, gold, 0, 0,gamePtr);
+  failed = assertMod(hasCard(0,gamePtr,mine),1);
+  if (!failed) {
+    printf("error: failed to discard current card \n");
   }
 
-  // verify that game ends if no estates
-  gamePtr->supplyCount[estate] = 1; //set to 1 because function decrements
-  baronEffect(0, 0, 1, gamePtr);
-  failed = assertMod(isGameOver(gamePtr),1);
-  if (failed) {
-    printf("end game due to no estates failed\n");
+  //verify card was trashed 
+  clearHand(0,gamePtr);
+  gainCard(mine, gamePtr, 0, 0);
+  gainCard(copper, gamePtr, 0, 0);
+  mineEffect(2, gold, 0, 0,gamePtr);
+  failed = assertMod(hasCard(0,gamePtr,copper),1);
+  if (!failed) {
+    printf("error: failed to discard trashed \n");
   }
 
   printf("Test completed!\n");
