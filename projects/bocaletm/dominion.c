@@ -365,7 +365,9 @@ int minionEffect(int choice1, int choice2, int currentPlayer, int handPos, struc
 
           //draw 4
           for (j = 0; j < 4; j++) {
-            drawCard(j, state);
+            // NOTE:had to comment out bug due to seg fault
+            // drawCard(j, state);
+            drawCard(i, state);
           }
         }
       }
