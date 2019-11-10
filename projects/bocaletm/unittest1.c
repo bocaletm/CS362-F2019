@@ -32,9 +32,9 @@ int testBaron() {
   // verify that estate in each hand position (fist,middle,last) is discarded
     //first
   clearHand(0,gamePtr);
-  gainCard(estate, gamePtr, 0, 0);
-  gainCard(mine, gamePtr, 0, 0);
-  gainCard(mine, gamePtr, 0, 0);
+  gainCard(estate, gamePtr, 2, 0);
+  gainCard(mine, gamePtr, 2, 0);
+  gainCard(mine, gamePtr, 2, 0);
   baronEffect(1, 0, 1, gamePtr);
   failed = assertMod(hasCard(0,gamePtr,estate),0);
   if (failed) {
@@ -43,9 +43,9 @@ int testBaron() {
 
     //middle
   clearHand(0,gamePtr);
-  gainCard(mine, gamePtr, 0, 0);
-  gainCard(estate, gamePtr, 0, 0);
-  gainCard(mine, gamePtr, 0, 0);
+  gainCard(mine, gamePtr, 2, 0);
+  gainCard(estate, gamePtr, 2, 0);
+  gainCard(mine, gamePtr, 2, 0);
   baronEffect(1, 0, 1, gamePtr);
   failed = assertMod(hasCard(0,gamePtr,estate),0);
   if (failed) {
@@ -54,9 +54,9 @@ int testBaron() {
 
     //last
   clearHand(0,gamePtr);
-  gainCard(mine, gamePtr, 0, 0);
-  gainCard(mine, gamePtr, 0, 0);
-  gainCard(estate, gamePtr, 0, 0);
+  gainCard(mine, gamePtr, 2, 0);
+  gainCard(mine, gamePtr, 2, 0);
+  gainCard(estate, gamePtr, 2, 0);
   baronEffect(1, 0, 1, gamePtr);
   failed = assertMod(hasCard(0,gamePtr,estate),0);
   if (failed) {
@@ -65,9 +65,9 @@ int testBaron() {
 
   // verify that estate is gained
   clearHand(0,gamePtr);
-  gainCard(mine, gamePtr, 0, 0);
-  gainCard(mine, gamePtr, 0, 0);
-  gainCard(mine, gamePtr, 0, 0);
+  gainCard(mine, gamePtr, 2, 0);
+  gainCard(mine, gamePtr, 2, 0);
+  gainCard(mine, gamePtr, 2, 0);
   baronEffect(0, 0, 1, gamePtr);
   failed = assertMod(hasCard(0,gamePtr,estate),1);
   if (failed) {

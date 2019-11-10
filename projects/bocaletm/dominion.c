@@ -391,7 +391,9 @@ int ambassadorEffect(int choice1, int choice2, int handPos, int currentPlayer, s
   }
 
   for (i = 0; i < state->handCount[currentPlayer]; i++) {
-    if (i != handPos && i == state->hand[currentPlayer][choice1] && i != choice1) {
+    //NOTE: had to fix bug where card was compared with iterator to even let
+    //tests execute beyond this point
+    if (i != handPos && state->hand[currentPlayer][choice1] == state->hand[currentPlayer][choice1]) {
       j++;
     }
   }
@@ -406,7 +408,8 @@ int ambassadorEffect(int choice1, int choice2, int handPos, int currentPlayer, s
   state->supplyCount[state->hand[currentPlayer][choice1]] += choice2;
 
   //each other player gains a copy of revealed card
-  for (i = 0; i <= state->numPlayers; i++) {
+  //NOTE: commenting out bug so tests execute for (i = 0; i <= state->numPlayers; i++) {
+  for (i = 0; i < state->numPlayers; i++) {
     if (i != currentPlayer) {
       gainCard(state->hand[currentPlayer][choice1], state, 0, i);
     }

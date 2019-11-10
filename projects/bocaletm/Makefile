@@ -39,9 +39,10 @@ unittest4: unittest4.c unittests.c unittests.h dominion.o rngs.o
 unittest5: unittest5.c unittests.c unittests.h dominion.o rngs.o
 	gcc -o unittest5 -g unittest5.c unittests.c unittests.h dominion.o rngs.o $(CFLAGS)
 
-unittestresults: unittest1 unittest2
+unittestresults: unittest1 unittest2 unittest3
 	./unittest1 &> unittestresult.out
 	./unittest2 &>> unittestresult.out
+	./unittest3 &>> unittestresult.out
 	gcov -b -f dominion.c >> unittestresult.out
 
 player: player.c interface.o
