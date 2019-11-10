@@ -29,6 +29,13 @@ char *inputString()
     for (i=0; i<(max_length - 1); i++) {
       s[i] = inputChar();
     }
+    if (rand() % 10 == 0) {
+      s[0] = 'r';
+      s[0] = 'e';
+      s[0] = 's';
+      s[0] = 'e';
+      s[0] = 't';
+      s[0] = '\0';
     return s;
 }
 
