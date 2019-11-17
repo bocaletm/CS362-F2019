@@ -1,9 +1,9 @@
-nclude "randomtests.h"
+#include "randomtests.h"
 
 /**************
  * RANDOM TEST 1: BARON
  *************/
-int testBaron() {
+int testBaron(int counter) {
   int failed = 0; //used to keep track of test status
 
   // set your card array
@@ -14,7 +14,7 @@ int testBaron() {
   struct gameState* gamePtr = &G;
 
   //rand seed
-  time_t seed = time(0); 
+  time_t seed = time(0) - counter; 
   printf("Begin Testing baronEffect():\n");
 
   //new game
@@ -26,9 +26,13 @@ int testBaron() {
 
   //random param 1 and estate pos
   int param1 = rand() % 2;
-  int param2 = 0;
-  int param3 = 1;
+  int param2 = (param1 ^ param1);
+  int param3 = rand() % 2;
+  int numEstates = rand() % 2;
   int estatePos = rand() % 3;
+
+  //set random number of estates
+  gamePtr->supplyCount[estate] = numEstates;
 
   if (param1 == 0) {
     // verify that 4 coins were added
@@ -99,5 +103,9 @@ int testBaron() {
 }
 
 int main() {
-  testBaron();  
+  int counter = 1000;
+  while (counter > 0) {
+    testBaron(counter);
+    counter--;
+  }  
 }

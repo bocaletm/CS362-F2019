@@ -10,10 +10,10 @@
 void clearHand(int player, struct gameState *state);
 int hasCard(int player, struct gameState *state, int card);
 int assertMod(int a, int b); 
-int testBaron();
+int testBaron(int counter);
 int testMine();
 int testAmbassador();
-int testMinion();
+int testMinion(int counter);
 int testTribute();
 
 #endif
