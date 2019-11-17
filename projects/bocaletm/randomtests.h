@@ -1,6 +1,7 @@
 #ifndef DOMINION_RANDOM_TESTS
 #define DOMINION_RANDOM_TESTS
 
+#include <stdlib.h>
 #include <time.h>
 #include <stdio.h>
 #include <string.h>

@@ -26,7 +26,7 @@ int testBaron(int counter) {
 
   //random param 1 and estate pos
   int param1 = rand() % 2;
-  int param2 = (param1 ^ param1);
+  int param2 = param1 ^ 1;
   int param3 = rand() % 2;
   int numEstates = rand() % 2;
   int estatePos = rand() % 3;

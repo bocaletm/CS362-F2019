@@ -20,74 +20,87 @@ int testMinion(int counter){
   //new game
   memset(gamePtr, 23, sizeof(struct gameState)); //set the game state
   int r = initializeGame(2, k, (int)seed, gamePtr); //initialize a new game
-
   //seed rand
-  srand(seed);
+  //srand(seed);
 
   //random 
   int param1 = rand() % 2;
-  int param2 = (param1 ^ param1);
+  int param2 = param1 ^ 1;
   int param3 = rand() % 2;
-  int numEstates = rand() % 2;
-  int estatePos = rand() % 3;
-
-  // verify that card is discarded
-  int randCard = (rand() % (25 - 1 + 1)) + 1;
+  int param4 = 0;
+  int randCard = (rand() % (24 - 1 + 1)) + 1;
+  
   clearHand(0,gamePtr);
-  gainCard(randCard, gamePtr, 2, 0);
-  minionEffect(0, 1, 0, 0, gamePtr);
-  failed = assertMod(hasCard(0,gamePtr,mine),1);
-  if (failed) {
-    printf("card was not discarded\n");
-  }
+  minionEffect(param1, param2, param3, param4, gamePtr);
+  if (param1) {
+    //verify that coins increased
+    int oldCoins = gamePtr->coins; 
+    minionEffect(param1, param2, param3, param4, gamePtr);
+    failed = assertMod(gamePtr->coins,(oldCoins+2));
+    if (failed) {
+      printf("coins were not gained\n");
+    }
+  } else  if (param2) {
+    // verify that card is discarded
+    clearHand(param3,gamePtr);
+    gainCard(randCard, gamePtr, 2, param3);
+    minionEffect(param1, param2, param3, param4, gamePtr);
+    failed = assertMod(hasCard(param3,gamePtr,randCard),1);
+    if (failed) {
+      printf("card was not discarded\n");
+    }
 
-  //verify that coins increased
-  int oldCoins = gamePtr->coins; 
-  minionEffect(1, 0, 0, 0, gamePtr);
-  failed = assertMod(gamePtr->coins,(oldCoins+2));
-  if (failed) {
-    printf("coins were not gained\n");
+    //verify that hand was discarded and 4 cards drawn
+    clearHand(param3,gamePtr);
+    gamePtr->whoseTurn = param3;
+    gainCard(minion, gamePtr, 2, param3);
+    gainCard(ambassador, gamePtr, 2, param3);
+    gainCard(estate, gamePtr, 2, param3);
+    gainCard(estate, gamePtr, 2, param3);
+    gainCard(feast, gamePtr, 2, param3);
+    minionEffect(param1, param2, param3, param4, gamePtr);
+    failed = assertMod(numHandCards(gamePtr),4);
+    if (failed) {
+      printf("curr player did not gain 4 cards\n");
+    }
+
+    //verify that hand was discarded and 4 cards drawn others
+    clearHand(0,gamePtr);
+    gamePtr->whoseTurn = param3;
+    gainCard(estate, gamePtr, 2, param3);
+    gamePtr->whoseTurn = param3 ^ 1;
+    clearHand(param3 ^ 1,gamePtr);
+    gainCard(estate, gamePtr, 2, param3 ^ 1);
+    gainCard(estate, gamePtr, 2, param3 ^ 1);
+    gainCard(estate, gamePtr, 2, param3 ^ 1);
+    gainCard(estate, gamePtr, 2, param3 ^ 1);
+    gainCard(estate, gamePtr, 2, param3 ^ 1);
+
+    gamePtr->whoseTurn = param3;
+    minionEffect(param1, param2, param3, param4, gamePtr);
+    gamePtr->whoseTurn = param3 ^ 1;
+    failed = assertMod(numHandCards(gamePtr),4);
+    if (failed) {
+      printf("other player did not gain 4 cards\n");
+    }
+
   }
   
-  //verify that hand was discarded and 4 cards drawn
-  clearHand(0,gamePtr);
-  gamePtr->whoseTurn = 0;
-  gainCard(minion, gamePtr, 2, 0);
-  gainCard(ambassador, gamePtr, 2, 0);
-  gainCard(estate, gamePtr, 2, 0);
-  gainCard(estate, gamePtr, 2, 0);
-  gainCard(feast, gamePtr, 2, 0);
-  minionEffect(0, 1, 0, 0, gamePtr);
-  failed = assertMod(numHandCards(gamePtr),4);
-  if (failed) {
-    printf("curr player did not gain 4 cards\n");
-  }
-
-  //verify that hand was discarded and 4 cards drawn others
-  clearHand(0,gamePtr);
-  gamePtr->whoseTurn = 0;
-  gainCard(estate, gamePtr, 2, 0);
-  gamePtr->whoseTurn = 1;
-  clearHand(1,gamePtr);
-  gainCard(estate, gamePtr, 2, 1);
-  gainCard(estate, gamePtr, 2, 1);
-  gainCard(estate, gamePtr, 2, 1);
-  gainCard(estate, gamePtr, 2, 1);
-  gainCard(estate, gamePtr, 2, 1);
-
-  gamePtr->whoseTurn = 0;
-  minionEffect(0, 1, 0, 0, gamePtr);
-  gamePtr->whoseTurn = 1;
-  failed = assertMod(numHandCards(gamePtr),4);
-  if (failed) {
-    printf("other player did not gain 4 cards\n");
-  }
-
   printf("Test completed!\n");
 
   return 0;
 }
 
 int main() {
-  testMinion(counter);  
+  //rand seed
+  time_t seed = time(0); 
+
+  //seed rand
+  srand(seed);
+
+  int counter = 1000;
+  while (counter > 0) {
+    testMinion(counter);  
+    counter--;
+  }
 }
