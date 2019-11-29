@@ -12,5 +12,6 @@ int hasCard(int player, struct gameState *state, int card);
 int assertMod(int a, int b); 
 int unitTestFive();
 int unitTestSix();
+int unitTestSeven();
 
 #endif

@@ -42,9 +42,9 @@ unittest5: unittest5.c unittests.c unittests.h dominion.o rngs.o
 unittest6: unittest6.c unittests.c unittests.h dominion.o rngs.o
 		gcc -o unittest6 -g unittest6.c unittests.c unittests.h dominion.o rngs.o $(CFLAGS)
 
-#unittest7: unittest7.c unittests.c unittests.h dominion.o rngs.o
-#		gcc -o unittest7 -g unittest7.c unittests.c unittests.h dominion.o rngs.o $(CFLAGS)
-#
+unittest7: unittest7.c unittests.c unittests.h dominion.o rngs.o
+		gcc -o unittest7 -g unittest7.c unittests.c unittests.h dominion.o rngs.o $(CFLAGS)
+
 #unittest8: unittest8.c unittests.c unittests.h dominion.o rngs.o
 #		gcc -o unittest8 -g unittest8.c unittests.c unittests.h dominion.o rngs.o $(CFLAGS)
 #
@@ -54,14 +54,14 @@ unittest6: unittest6.c unittests.c unittests.h dominion.o rngs.o
 #unittest10: unittest10.c unittests.c unittests.h dominion.o rngs.o
 #		gcc -o unittest10 -g unittest10.c unittests.c unittests.h dominion.o rngs.o $(CFLAGS)
 
-unittestresults: unittest5 unittest6
+unittestresults: unittest5 unittest6 unittest7
 #		./unittest1 &> unittestresult.out
 #		./unittest2 >> unittestresult.out
 #		./unittest3 >> unittestresult.out
 #		./unittest4 >> unittestresult.out
 		./unittest5 >> unittestresult.out
 		./unittest6 >> unittestresult.out
-#		./unittest7 >> unittestresult.out
+		./unittest7 >> unittestresult.out
 #		./unittest8 >> unittestresult.out
 #		./unittest9 >> unittestresult.out
 #		./unittest10 >> unittestresult.out
