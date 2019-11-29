@@ -36,8 +36,8 @@ runtests: testDrawCard
 #unittest4: unittest4.c unittests.c unittests.h dominion.o rngs.o
 #		gcc -o unittest4 -g unittest4.c unittests.c unittests.h dominion.o rngs.o $(CFLAGS)
 #
-#unittest5: unittest5.c unittests.c unittests.h dominion.o rngs.o
-#		gcc -o unittest5 -g unittest5.c unittests.c unittests.h dominion.o rngs.o $(CFLAGS)
+unittest5: unittest5.c unittests.c unittests.h dominion.o rngs.o
+		gcc -o unittest5 -g unittest5.c unittests.c unittests.h dominion.o rngs.o $(CFLAGS)
 #
 #unittest6: unittest6.c unittests.c unittests.h dominion.o rngs.o
 #		gcc -o unittest6 -g unittest6.c unittests.c unittests.h dominion.o rngs.o $(CFLAGS)
