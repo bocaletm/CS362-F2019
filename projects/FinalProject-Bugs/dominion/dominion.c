@@ -233,17 +233,20 @@ int shuffle(int player, struct gameState *state) {
 int playCard(int handPos, int choice1, int choice2, int choice3, struct gameState *state)
 {
     int card;
-    int coin_bonus = 0; 		//tracks coins gain from actions
+    int* bonusPtr = 0;	//tracks coins gain from actions
+    bonusPtr = malloc(sizeof(int));
 
     //check if it is the right phase
     if (state->phase != 0)
     {
+        free(bonusPtr);
         return -1;
     }
 
     //check if player has enough actions
     if ( state->numActions < 1 )
     {
+        free(bonusPtr);
         return -1;
     }
 
@@ -253,12 +256,14 @@ int playCard(int handPos, int choice1, int choice2, int choice3, struct gameStat
     //check if selected card is an action
     if ( card < adventurer || card > treasure_map )
     {
+        free(bonusPtr);
         return -1;
     }
 
     //play card
-    if ( cardEffect(card, choice1, choice2, choice3, state, handPos, &coin_bonus) < 0 )
+    if ( cardEffect(card, choice1, choice2, choice3, state, handPos, bonusPtr) < 0 )
     {
+        free(bonusPtr);
         return -1;
     }
 
@@ -266,7 +271,9 @@ int playCard(int handPos, int choice1, int choice2, int choice3, struct gameStat
     state->numActions--;
 
     //update coins (Treasure cards may be added with card draws)
-    updateCoins(state->whoseTurn, state, coin_bonus);
+    updateCoins(state->whoseTurn, state, *bonusPtr);
+
+    free(bonusPtr);
 
     return 0;
 }

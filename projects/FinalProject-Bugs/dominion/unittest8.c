@@ -15,7 +15,7 @@ int unitTestEight() {
 
   //rand seed
   time_t seed = time(0); 
-  printf("Begin Testing tribute reveal card loop\n");
+  printf("Begin Testing bonus coin recording in cardEffect\n");
 
   //new game
   memset(gamePtr, 23, sizeof(struct gameState)); //set the game state
@@ -42,6 +42,8 @@ int unitTestEight() {
   passed = assertMod(bonus,0);
   if (!passed) {
     printf("\tFailed: bonus coins not processed\n");
+  } else {
+    printf("\tPassed!\n");
   }
 
   printf("Test completed!\n");

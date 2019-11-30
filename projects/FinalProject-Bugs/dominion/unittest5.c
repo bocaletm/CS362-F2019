@@ -29,6 +29,8 @@ int unitTestFive() {
   failed = assertMod(scoreFor(0,gamePtr),6);
   if (failed) {
     printf("\tFailed: did not score deckCount\n");
+  } else {
+    printf("\tPassed!\n");
   }
 
   printf("Test completed!\n");

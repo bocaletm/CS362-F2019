@@ -23,21 +23,31 @@ int unitTestSeven() {
 
   //set the game state
   //meke sure any player will trigger tribute reveal cards
-  gamePtr->discardCount[0] = 2;
-  gamePtr->deckCount[0] = 2;
-  gamePtr->discardCount[1] = 2;
-  gamePtr->deckCount[1] = 2;
+  gamePtr->discardCount[0] = 3;
+  gamePtr->deckCount[0] = 3;
+  gamePtr->discardCount[1] = 3;
+  gamePtr->deckCount[1] = 3;
   
   //make sure coins are incremented twice +2
   gamePtr->coins = 0;
-  gamePtr->deck[1][gamePtr->deckCount[1]-1] = copper;
-  gamePtr->deck[1][gamePtr->deckCount[1]-1] = silver;
-  
-  cardEffect(tribute, 0, 0, 0, gamePtr, 0, 0);
-  failed = assertMod(gamePtr->coins,4);
+  gainCard(copper,gamePtr,1,1);
+  gainCard(silver,gamePtr,1,1);
+  gainCard(gold,gamePtr,1,1);
+
+  int* bonusPtr = 0;	//tracks coins gain from actions
+  bonusPtr = malloc(sizeof(int));
+  *bonusPtr = 0;
+
+  cardEffect(tribute, 0, 0, 0, gamePtr, 0, bonusPtr);
+
+  failed = assertMod(*bonusPtr,4);
   if (failed) {
     printf("\tFailed: tribute revealed loop\n");
+  } else {
+    printf("\tPassed!\n");
   }
+
+  free(bonusPtr);
 
   printf("Test completed!\n");
 

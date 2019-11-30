@@ -28,6 +28,8 @@ int unitTestSix() {
   failed = assertMod(gamePtr->coins,0);
   if (failed) {
     printf("\tFailed: feast card resulted in gaining extra coins\n");
+  } else {
+    printf("\tPassed!\n");
   }
 
   printf("Test completed!\n");
