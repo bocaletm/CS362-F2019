@@ -27,7 +27,9 @@ int unitTestOne() {
 
 
 	if (playedCardCountOld != gamePtr->playedCardCount)	{
-		printf("Failed: did not trash card\n");
+		printf("\tFailed: did not trash card\n");
+	} else {
+		printf("\tPassed\n");
 	}
 
 	printf("Test completed!\n");

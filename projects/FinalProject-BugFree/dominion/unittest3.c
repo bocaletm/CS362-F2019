@@ -21,10 +21,12 @@ int unitTestThree() {
 	memset(gamePtr, 23, sizeof(struct gameState)); //set the game state
 	int r = initializeGame(2, k, (int)seed, gamePtr); //initialize a new game
 
-	int result = cardEffect(mine, curse, gold, 0, gamePtr, 0, 0);
+	int result = cardEffect(remodel, curse, gold, 0, gamePtr, 0, 0);
 
 	if (result != -1)	{
-		printf("Failed: card costs calculated incorrectly\n");
+		printf("\tFailed: card costs calculated incorrectly\n");
+	} else if (result == -1) {
+		printf("\tPassed\n");
 	}
 
 	printf("Test completed!\n");
