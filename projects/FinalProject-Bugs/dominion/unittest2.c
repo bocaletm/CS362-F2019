@@ -24,7 +24,9 @@ int unitTestTwo() {
 	int result = cardEffect(mine, curse, gold, 0, gamePtr, 0, 0);
 
 	if (result != -1)	{
-		printf("Failed: cost of gained treasure exceeds cost of trashed\n");
+		printf("\tFailed: cost of gained treasure exceeds cost of trashed\n");
+	} else if (result == -1) {
+		printf("\tPassed\n");
 	}
 
 	printf("Test completed!\n");
