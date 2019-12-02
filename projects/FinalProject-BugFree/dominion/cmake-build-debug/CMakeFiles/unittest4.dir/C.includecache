@@ -1,0 +1,30 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/Users/andrew/Documents/School/CS 362/FinalProject/CS362-F2019/projects/FinalProject-BugFree/dominion/dominion.c
+dominion.h
+/Users/andrew/Documents/School/CS 362/FinalProject/CS362-F2019/projects/FinalProject-BugFree/dominion/dominion.h
+dominion_helpers.h
+/Users/andrew/Documents/School/CS 362/FinalProject/CS362-F2019/projects/FinalProject-BugFree/dominion/dominion_helpers.h
+rngs.h
+/Users/andrew/Documents/School/CS 362/FinalProject/CS362-F2019/projects/FinalProject-BugFree/dominion/rngs.h
+stdio.h
+-
+math.h
+-
+stdlib.h
+-
+
+/Users/andrew/Documents/School/CS 362/FinalProject/CS362-F2019/projects/FinalProject-BugFree/dominion/dominion.h
+
+/Users/andrew/Documents/School/CS 362/FinalProject/CS362-F2019/projects/FinalProject-BugFree/dominion/dominion_helpers.h
+dominion.h
+/Users/andrew/Documents/School/CS 362/FinalProject/CS362-F2019/projects/FinalProject-BugFree/dominion/dominion.h
+
+/Users/andrew/Documents/School/CS 362/FinalProject/CS362-F2019/projects/FinalProject-BugFree/dominion/rngs.h
+

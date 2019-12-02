@@ -1,0 +1,1 @@
+/Library/Developer/CommandLineTools/usr/bin/cc -g -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX10.15.sdk -Wl,-search_paths_first -Wl,-headerpad_max_install_names  CMakeFiles/unittest2.dir/unittest2.c.o CMakeFiles/unittest2.dir/dominion.c.o CMakeFiles/unittest2.dir/rngs.c.o  -o unittest2 
