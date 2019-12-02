@@ -55,7 +55,7 @@ unittest8: unittest8.c unittests.c unittests.h dominion.o rngs.o
 #		gcc -o unittest10 -g unittest10.c unittests.c unittests.h dominion.o rngs.o $(CFLAGS)
 
 unittestresults: unittest1 unittest2 unittest3 unittest4 unittest5 unittest6 unittest7 unittest8
-		#./unittest1 &> unittestresult.out
+		./unittest1 &> unittestresult.out
 		./unittest2 >> unittestresult.out
 		./unittest3 >> unittestresult.out
 		./unittest4 >> unittestresult.out
