@@ -28,7 +28,7 @@ int unitTestFour() {
 
 	int result = isGameOver(gamePtr);
 
-	if (result != -1)	{
+	if (result != 1)	{
 		printf("Failed: isGameOver did not count all cards\n");
 	}
 
