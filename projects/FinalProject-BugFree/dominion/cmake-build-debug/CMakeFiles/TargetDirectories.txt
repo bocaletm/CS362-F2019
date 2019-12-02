@@ -1,9 +1,0 @@
-/Users/andrew/Documents/School/CS 362/FinalProject/CS362-F2019/projects/FinalProject-BugFree/dominion/cmake-build-debug/CMakeFiles/unittest4.dir
-/Users/andrew/Documents/School/CS 362/FinalProject/CS362-F2019/projects/FinalProject-BugFree/dominion/cmake-build-debug/CMakeFiles/unittest3.dir
-/Users/andrew/Documents/School/CS 362/FinalProject/CS362-F2019/projects/FinalProject-BugFree/dominion/cmake-build-debug/CMakeFiles/unittest2.dir
-/Users/andrew/Documents/School/CS 362/FinalProject/CS362-F2019/projects/FinalProject-BugFree/dominion/cmake-build-debug/CMakeFiles/playdom.dir
-/Users/andrew/Documents/School/CS 362/FinalProject/CS362-F2019/projects/FinalProject-BugFree/dominion/cmake-build-debug/CMakeFiles/rebuild_cache.dir
-/Users/andrew/Documents/School/CS 362/FinalProject/CS362-F2019/projects/FinalProject-BugFree/dominion/cmake-build-debug/CMakeFiles/unittest1.dir
-/Users/andrew/Documents/School/CS 362/FinalProject/CS362-F2019/projects/FinalProject-BugFree/dominion/cmake-build-debug/CMakeFiles/edit_cache.dir
-/Users/andrew/Documents/School/CS 362/FinalProject/CS362-F2019/projects/FinalProject-BugFree/dominion/cmake-build-debug/CMakeFiles/dominion.dir
-/Users/andrew/Documents/School/CS 362/FinalProject/CS362-F2019/projects/FinalProject-BugFree/dominion/cmake-build-debug/CMakeFiles/rngs.dir

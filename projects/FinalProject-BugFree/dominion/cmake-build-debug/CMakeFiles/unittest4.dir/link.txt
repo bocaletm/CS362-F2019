@@ -1,1 +1,0 @@
-/Library/Developer/CommandLineTools/usr/bin/cc -g -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX10.15.sdk -Wl,-search_paths_first -Wl,-headerpad_max_install_names  CMakeFiles/unittest4.dir/unittest4.c.o CMakeFiles/unittest4.dir/dominion.c.o CMakeFiles/unittest4.dir/rngs.c.o  -o unittest4 
