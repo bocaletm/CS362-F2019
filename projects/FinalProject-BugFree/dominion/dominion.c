@@ -1082,6 +1082,14 @@ int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState
                 drawCard(currentPlayer, state);
                 drawCard(currentPlayer, state);
             }
+            
+            else if (tributeRevealedCards[i] == -1)
+            {
+                if (DEBUG)
+                {
+                    printf("Both cards revealed are the same\n");
+                }
+            }
             else { //Action Card
                 state->numActions = state->numActions + 2;
             }
@@ -1104,7 +1112,7 @@ int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState
 
         for (i = 0; i < state->handCount[currentPlayer]; i++)
         {
-            if (i != handPos && i == state->hand[currentPlayer][choice1] && i != choice1)
+            if (i != handPos && state->hand[currentPlayer][i] == state->hand[currentPlayer][choice1] && i != choice1)
             {
                 j++;
             }
